@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bellano — Passport</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  body{margin:0;background:#F4EFE6;-webkit-font-smoothing:antialiased;}
+  *{box-sizing:border-box;}
+  a{text-decoration:none;color:inherit;}
+</style>
+
+<style>#demo-note{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#1C2620;color:#F4EFE6;font:500 11.5px/1.35 'Space Grotesk',Helvetica,Arial,sans-serif;text-align:center;padding:7px 12px}#demo-note a{text-decoration:underline}body{padding-bottom:34px}</style>
+</head>
+<body>
+<div id="riva-root"></div>
+<div id="demo-note">Prototype for feedback · demo content: texts to be verified, photos are placeholders<span id="fb"></span></div>
+<template id="riva-template">
+
+
+<div style="width:100%;max-width:480px;margin:0 auto;min-height:100vh;background:#F4EFE6;font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#1C2620;display:flex;flex-direction:column;">
+
+  <div style="position:relative;border-radius:0 0 20px 20px;overflow:hidden;background:linear-gradient(155deg,#2F4A43 0%,#1C2620 70%);padding:16px 20px 24px;">
+    <a href="index.html" aria-label="Back to Bellano overview" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:rgba(244,239,230,0.16);color:#F4EFE6;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(244,239,230,0.6);margin-top:22px;">Passport · Bellano</div>
+    <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px;">
+      <span style="font-family:'Instrument Serif',Georgia,serif;font-size:60px;line-height:1;color:#F4EFE6;">{{earnedCount}}</span>
+      <span style="font-size:15px;color:rgba(244,239,230,0.75);">of {{total}} stamps</span>
+    </div>
+    <div style="display:flex;gap:5px;margin-top:14px;">
+      <sc-for list="{{segments}}" as="seg" hint-placeholder-count="6">
+        <div style="{{seg.style}}"></div>
+      </sc-for>
+    </div>
+    <div style="font-size:12.5px;line-height:1.45;color:rgba(244,239,230,0.65);margin-top:12px;">Bellagio, Varenna and more will stamp the same passport.</div>
+  </div>
+
+  <div style="padding:22px 20px 8px;display:flex;align-items:baseline;justify-content:space-between;">
+    <div style="font-family:'Instrument Serif',Georgia,serif;font-size:20px;">Stamps</div>
+    <div style="font-size:11.5px;color:rgba(28,38,32,0.5);">Earned by exploring, not by typing</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 10px;padding:10px 20px 8px;">
+    <sc-for list="{{cells}}" as="c" hint-placeholder-count="8">
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;">
+        <div role="img" aria-label="{{c.aria}}" style="{{c.sealStyle}}">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{c.glyphColor}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{c.glyph}}"/></svg>
+        </div>
+        <div>
+          <div style="font-size:12.5px;font-weight:600;">{{c.name}}</div>
+          <div style="{{c.captionStyle}}">{{c.caption}}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:18px 20px 0;">
+
+    <sc-if value="{{dayCardLocked}}" hint-placeholder-val="{{true}}">
+      <div style="border:1.5px dashed rgba(28,38,32,0.25);border-radius:16px;padding:16px 18px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,38,32,0.45);">Locked</div>
+        <div style="font-family:'Instrument Serif',Georgia,serif;font-size:22px;margin-top:4px;">Your Bellano day card</div>
+        <div style="font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:6px;">{{toGoLine}} It builds itself from your stamps — nothing to fill in.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{dayCardOpen}}" hint-placeholder-val="{{false}}">
+      <div style="background:#1C2620;border-radius:16px;padding:18px;color:#F4EFE6;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(244,239,230,0.6);">Unlocked</div>
+        <div style="font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1.05;margin-top:4px;">Your day in Bellano</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+          <sc-for list="{{chips}}" as="chip" hint-placeholder-count="4">
+            <span style="font-size:12px;font-weight:500;padding:6px 11px;border-radius:999px;background:rgba(244,239,230,0.12);">{{chip.name}}</span>
+          </sc-for>
+        </div>
+        <div style="font-size:12.5px;line-height:1.5;color:rgba(244,239,230,0.65);margin-top:12px;">Built from what you opened and tapped. A shareable version is the next step.</div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <div style="padding:16px 20px 0;">
+    <div style="background:#fff;border:1px solid rgba(28,38,32,0.10);border-radius:14px;padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#2F6F6A;">How this works</div>
+      <div style="font-size:13px;line-height:1.55;color:rgba(28,38,32,0.7);margin-top:6px;">Stamps come from what you open and tap. The few questions we ask take one tap each, and every one says why. Answers are pooled with other visitors to help the Comune plan transport and flows — never shown on their own.</div>
+    </div>
+  </div>
+
+  <div style="padding:18px 20px 28px;text-align:center;">
+    <button type="button" onClick="{{resetStamps}}" style="background:none;border:none;font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:rgba(28,38,32,0.4);text-decoration:underline;padding:6px 10px;">Reset demo stamps</button>
+  </div>
+
+</div>
+</template>
+<script src="riva-runtime.js"></script>
+<script src="config.js"></script>
+<script>
+
+class Component extends DCLogic {
+  storeKey() { return 'riva.bellano.v1'; }
+  catalog() {
+    return [
+      { id: 'welcome', name: 'Arrived', how: 'Open Riva in Bellano', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z' },
+      { id: 'orrido', name: 'Orrido', how: 'Open all three Orrido tabs', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z M12 15a3 3 0 100-6 3 3 0 000 6z' },
+      { id: 'table', name: 'At the table', how: 'Open all three Eat tabs', color: '#C1633B', tint: '#FBEDE6', glyph: 'M6 3v8a2 2 0 002 2h0a2 2 0 002-2V3M8 13v8M17 3c-1.7 0-3 2-3 5s1.3 5 3 5m0-10v18' },
+      { id: 'pin', name: 'Follow the pin', how: 'Tap a pin for directions', color: '#C1633B', tint: '#FBEDE6', glyph: 'M3 11l19-9-9 19-2-8-8-2z' },
+      { id: 'checkin', name: 'Check-in', how: 'Say how you got here', color: '#C1633B', tint: '#FBEDE6', glyph: 'M9 12l2 2 4-4 M12 21a9 9 0 100-18 9 9 0 000 18z' },
+      { id: 'slow', name: 'Slow traveller', how: 'Arrive by train or boat', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12' },
+      { id: 'meet', name: 'Meet', how: 'Open all three Meet tabs', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75' },
+      { id: 'street', name: 'Street', how: 'Open all three Street tabs', color: '#C1633B', tint: '#FBEDE6', glyph: 'M12 22a10 10 0 100-20 10 10 0 000 20z M12 6v6l4 2' }
+    ];
+  }
+  readStore() {
+    var raw = null;
+    try { raw = window.localStorage.getItem(this.storeKey()); } catch (e) {}
+    if (!raw) { try { raw = window.__rivaMem || null; } catch (e) {} }
+    var data = null;
+    try { data = raw ? JSON.parse(raw) : null; } catch (e) { data = null; }
+    if (!data || typeof data !== 'object') data = {};
+    if (!Array.isArray(data.stamps)) data.stamps = [];
+    if (!data.tabs || typeof data.tabs !== 'object') data.tabs = {};
+    return data;
+  }
+  writeStore(data) {
+    var raw = JSON.stringify(data);
+    try { window.__rivaMem = raw; } catch (e) {}
+    try { window.localStorage.setItem(this.storeKey(), raw); } catch (e) {}
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { stamps: this.readStore().stamps };
+  }
+  componentDidMount() {
+    var self = this;
+    this.poll = setInterval(function () {
+      var s = self.readStore().stamps;
+      if (s.join(',') !== self.state.stamps.join(',')) self.setState({ stamps: s });
+    }, 1500);
+  }
+  componentWillUnmount() {
+    clearInterval(this.poll);
+  }
+  renderVals() {
+    var self = this;
+    var cat = this.catalog();
+    var have = this.state.stamps;
+    var earnable = cat.filter(function (s) { return !s.soon; });
+    var earned = earnable.filter(function (s) { return have.indexOf(s.id) >= 0; });
+    var n = earned.length;
+    var tilts = [-5, 4, -3, 6, -4, 3, 0, 0];
+    var threshold = 4;
+    var toGo = Math.max(0, threshold - n);
+    var base = 'width:72px;height:72px;border-radius:999px;display:flex;align-items:center;justify-content:center;';
+    return {
+      earnedCount: n,
+      total: earnable.length,
+      segments: earnable.map(function (s) {
+        var on = have.indexOf(s.id) >= 0;
+        return { style: 'flex:1;height:5px;border-radius:3px;background:' + (on ? '#F4EFE6' : 'rgba(244,239,230,0.2)') + ';' };
+      }),
+      cells: cat.map(function (s, i) {
+        var on = !s.soon && have.indexOf(s.id) >= 0;
+        return {
+          name: s.name,
+          glyph: s.glyph,
+          glyphColor: on ? s.color : 'rgba(28,38,32,0.35)',
+          sealStyle: on
+            ? base + 'border:2.5px solid ' + s.color + ';background:' + s.tint + ';box-shadow:inset 0 0 0 4px #F4EFE6, inset 0 0 0 5.5px ' + s.color + ';transform:rotate(' + tilts[i] + 'deg);'
+            : base + 'border:2px dashed rgba(28,38,32,0.22);',
+          caption: s.soon ? 'Coming soon' : (on ? 'Earned' : s.how),
+          captionStyle: 'font-size:10.5px;line-height:1.35;margin-top:2px;' + (on ? 'font-weight:600;color:' + s.color + ';' : 'color:rgba(28,38,32,0.55);'),
+          aria: s.name + (on ? ', earned' : (s.soon ? ', coming soon' : ', not yet earned. ' + s.how))
+        };
+      }),
+      dayCardLocked: n < threshold,
+      dayCardOpen: n >= threshold,
+      toGoLine: 'Earn ' + toGo + ' more stamp' + (toGo === 1 ? '' : 's') + ' to unlock it.',
+      chips: earned.map(function (s) { return { name: s.name }; }),
+      resetStamps: function () {
+        self.writeStore({ stamps: [], tabs: {} });
+        self.setState({ stamps: [] });
+      }
+    };
+  }
+}
+
+rivaMount({Component: Component});
+(function(){var u=(window.RIVA_CONFIG||{}).feedbackUrl;if(u){var s=document.getElementById('fb');var a=document.createElement('a');a.href=u;a.target='_blank';a.rel='noopener';a.textContent='Give feedback';s.textContent=' · ';s.appendChild(a);}})();
+</script>
+</body>
+</html>
