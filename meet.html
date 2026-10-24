@@ -22,21 +22,6 @@
 
 <div style="width:100%;max-width:480px;margin:0 auto;min-height:100vh;background:#F4EFE6;font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#1C2620;display:flex;flex-direction:column;">
 
-  <div role="status" aria-live="polite">
-    <sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
-      <a href="passport.html" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:440px;z-index:50;display:flex;align-items:center;gap:12px;background:#1C2620;color:#F4EFE6;border-radius:16px;padding:12px 14px;box-shadow:0 8px 24px rgba(28,38,32,0.28);">
-        <div style="flex:0 0 38px;height:38px;border-radius:999px;border:2px solid #F4EFE6;display:flex;align-items:center;justify-content:center;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4EFE6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{toastGlyph}}"/></svg>
-        </div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(244,239,230,0.6);">New stamp</div>
-          <div style="font-size:14px;font-weight:600;margin-top:1px;">{{toastTitle}}</div>
-        </div>
-        <div style="flex:0 0 auto;font-size:12px;color:rgba(244,239,230,0.7);">{{toastCount}}</div>
-      </a>
-    </sc-if>
-  </div>
-
   <div style="position:relative;height:220px;border-radius:0 0 20px 20px;overflow:hidden;background:linear-gradient(155deg,#47615A 0%,#2B3D36 60%,#1A2420 100%);display:flex;flex-direction:column;justify-content:space-between;">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0;">
       <a href="index.html" aria-label="Back to Bellano overview" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:rgba(244,239,230,0.16);color:#F4EFE6;">
@@ -169,7 +154,7 @@
               <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;"><div style="font-size:15px;font-weight:600;">Monumento a Tommaso Grossi</div></div>
               <div style="font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:5px;">On the lakefront. White marble, inaugurated in 1876, made by Antonio Tantardini. The inscription is signed by Alessandro Manzoni.</div>
             </div>
-            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Monumento%20a%20Tommaso%20Grossi%2C%20Viale%20Tommaso%20Grossi%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" onClick="{{onPin}}" title="Monumento a Tommaso Grossi" aria-label="Get directions to Monumento a Tommaso Grossi" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Monumento%20a%20Tommaso%20Grossi%2C%20Viale%20Tommaso%20Grossi%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" title="Monumento a Tommaso Grossi" aria-label="Get directions to Monumento a Tommaso Grossi" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
           </div>
         </div>
         <div style="background:#fff;border:1px solid rgba(28,38,32,0.10);border-radius:14px;padding:14px 16px;">
@@ -178,7 +163,7 @@
               <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;"><div style="font-size:15px;font-weight:600;">Orrido di Bellano</div></div>
               <div style="font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:5px;">Boldoni, Stendhal and Wetzel all wrote about the gorge.</div>
             </div>
-            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Orrido%20di%20Bellano%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" onClick="{{onPin}}" title="Orrido di Bellano" aria-label="Get directions to Orrido di Bellano" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Orrido%20di%20Bellano%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" title="Orrido di Bellano" aria-label="Get directions to Orrido di Bellano" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
           </div>
         </div>
         <div style="background:#fff;border:1px solid rgba(28,38,32,0.10);border-radius:14px;padding:14px 16px;">
@@ -187,7 +172,7 @@
               <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;"><div style="font-size:15px;font-weight:600;">Museo Giancarlo Vitali</div></div>
               <div style="font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:5px;">Via Manzoni 50, in Palazzo Lorla. Over 100 of his paintings.</div>
             </div>
-            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Museo%20Giancarlo%20Vitali%2C%20Via%20Manzoni%2050%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" onClick="{{onPin}}" title="Museo Giancarlo Vitali" aria-label="Get directions to Museo Giancarlo Vitali" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Museo%20Giancarlo%20Vitali%2C%20Via%20Manzoni%2050%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" title="Museo Giancarlo Vitali" aria-label="Get directions to Museo Giancarlo Vitali" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
           </div>
         </div>
         <div style="background:#fff;border:1px solid rgba(28,38,32,0.10);border-radius:14px;padding:14px 16px;">
@@ -196,7 +181,7 @@
               <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;"><div style="font-size:15px;font-weight:600;">San Nicolao Arte Contemporanea</div></div>
               <div style="font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:5px;">Via San Nicolao 9. His copper fish hang from the ceiling.</div>
             </div>
-            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=San%20Nicolao%20Arte%20Contemporanea%2C%20Via%20San%20Nicolao%209%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" onClick="{{onPin}}" title="San Nicolao Arte Contemporanea" aria-label="Get directions to San Nicolao Arte Contemporanea" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=San%20Nicolao%20Arte%20Contemporanea%2C%20Via%20San%20Nicolao%209%2C%20Bellano%20LC%2C%20Italy" target="_blank" rel="noopener" title="San Nicolao Arte Contemporanea" aria-label="Get directions to San Nicolao Arte Contemporanea" style="flex:0 0 30px;height:30px;border-radius:999px;background:#F4EFE6;border:1px solid rgba(28,38,32,0.14);display:flex;align-items:center;justify-content:center;color:#1C2620;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
           </div>
         </div>
         <div style="margin-top:4px;background:#fff;border:1px solid #2F6F6A;border-radius:14px;padding:14px 16px;">
@@ -219,78 +204,13 @@
 <script>
 
 class Component extends DCLogic {
-  storeKey() { return 'riva.bellano.v1'; }
-  catalog() {
-    return [
-      { id: 'welcome', name: 'Arrived', how: 'Open Riva in Bellano', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z' },
-      { id: 'see', name: 'See', how: 'Open all three See tabs', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z M12 15a3 3 0 100-6 3 3 0 000 6z' },
-      { id: 'table', name: 'At the table', how: 'Open all three Eat tabs', color: '#C1633B', tint: '#FBEDE6', glyph: 'M6 3v8a2 2 0 002 2h0a2 2 0 002-2V3M8 13v8M17 3c-1.7 0-3 2-3 5s1.3 5 3 5m0-10v18' },
-      { id: 'pin', name: 'Follow the pin', how: 'Tap a pin for directions', color: '#C1633B', tint: '#FBEDE6', glyph: 'M3 11l19-9-9 19-2-8-8-2z' },
-      { id: 'checkin', name: 'Check-in', how: 'Say how you got here', color: '#C1633B', tint: '#FBEDE6', glyph: 'M9 12l2 2 4-4 M12 21a9 9 0 100-18 9 9 0 000 18z' },
-      { id: 'slow', name: 'Slow traveller', how: 'Arrive by train or boat', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12' },
-      { id: 'meet', name: 'Meet', how: 'Open all three Meet tabs', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75' },
-      { id: 'street', name: 'Street', how: 'Open all three Street tabs', color: '#C1633B', tint: '#FBEDE6', glyph: 'M12 22a10 10 0 100-20 10 10 0 000 20z M12 6v6l4 2' }
-    ];
-  }
-  readStore() {
-    var raw = null;
-    try { raw = window.localStorage.getItem(this.storeKey()); } catch (e) {}
-    if (!raw) { try { raw = window.__rivaMem || null; } catch (e) {} }
-    var data = null;
-    try { data = raw ? JSON.parse(raw) : null; } catch (e) { data = null; }
-    if (!data || typeof data !== 'object') data = {};
-    if (!Array.isArray(data.stamps)) data.stamps = [];
-    if (!data.tabs || typeof data.tabs !== 'object') data.tabs = {};
-    return data;
-  }
-  writeStore(data) {
-    var raw = JSON.stringify(data);
-    try { window.__rivaMem = raw; } catch (e) {}
-    try { window.localStorage.setItem(this.storeKey(), raw); } catch (e) {}
-  }
-  award(ids) {
-    var d = this.readStore();
-    var added = [];
-    ids.forEach(function (id) {
-      if (d.stamps.indexOf(id) < 0) { d.stamps.push(id); added.push(id); }
-    });
-    if (added.length) this.writeStore(d);
-    return added;
-  }
-  celebrate(ids) {
-    var self = this;
-    var cat = this.catalog();
-    var picked = ids.map(function (id) { return cat.filter(function (s) { return s.id === id; })[0]; });
-    var have = this.readStore().stamps;
-    var earnable = cat.filter(function (s) { return !s.soon; });
-    var n = earnable.filter(function (s) { return have.indexOf(s.id) >= 0; }).length;
-    this.setState({ toast: { title: picked.map(function (s) { return s.name; }).join(' + '), glyph: picked[0].glyph, count: n + ' of ' + earnable.length } });
-    clearTimeout(this.toastTimer);
-    this.toastTimer = setTimeout(function () { self.setState({ toast: null }); }, 4200);
-  }
-  noteTab(name) {
-    var d = this.readStore();
-    var seen = d.tabs.meet || [];
-    if (seen.indexOf(name) < 0) { seen.push(name); d.tabs.meet = seen; this.writeStore(d); }
-    if (seen.length >= 3) {
-      var added = this.award(['meet']);
-      if (added.length) this.celebrate(added);
-    }
-  }
 
   constructor(props) {
     super(props);
-    this.state = { tab: 'people', toast: null };
-  }
-  componentDidMount() {
-    this.noteTab('people');
-  }
-  componentWillUnmount() {
-    clearTimeout(this.toastTimer);
+    this.state = { tab: 'people' };
   }
   go(name) {
     this.setState({ tab: name });
-    this.noteTab(name);
   }
   pillStyle(name) {
     var active = this.state.tab === name;
@@ -301,7 +221,6 @@ class Component extends DCLogic {
   }
   renderVals() {
     var self = this;
-    var t = this.state.toast || { title: '', glyph: '', count: '' };
     return {
       tabIsPeople: this.state.tab === 'people',
       tabIsStories: this.state.tab === 'stories',
@@ -311,15 +230,7 @@ class Component extends DCLogic {
       pillWalkStyle: this.pillStyle('walk'),
       goPeople: function () { self.go('people'); },
       goStories: function () { self.go('stories'); },
-      goWalk: function () { self.go('walk'); },
-      onPin: function () {
-        var added = self.award(['pin']);
-        if (added.length) self.celebrate(added);
-      },
-      hasToast: !!this.state.toast,
-      toastTitle: t.title,
-      toastGlyph: t.glyph,
-      toastCount: t.count
+      goWalk: function () { self.go('walk'); }
     };
   }
 }
