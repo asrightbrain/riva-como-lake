@@ -4,193 +4,258 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bellano — Passport</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap">
 <style>
-  body{margin:0;background:#F4EFE6;-webkit-font-smoothing:antialiased;}
-  *{box-sizing:border-box;}
-  a{text-decoration:none;color:inherit;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F4EFE6;font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#1C2620;-webkit-font-smoothing:antialiased;padding-bottom:40px}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit}
+.page{max-width:480px;margin:0 auto;min-height:100vh}
+.hdr{background:linear-gradient(155deg,#2F4A43 0%,#1C2620 70%);border-radius:0 0 20px 20px;padding:16px 20px 24px;color:#F4EFE6}
+.hdr-back{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:rgba(244,239,230,0.16);border:none;color:#F4EFE6}
+.hdr-eyebrow{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,239,230,0.6);margin-top:22px}
+.hdr-count{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.hdr-n{font-family:'Instrument Serif',Georgia,serif;font-size:60px;line-height:1}
+.hdr-of{font-size:15px;color:rgba(244,239,230,0.75)}
+.hdr-dots{display:flex;gap:5px;margin-top:14px}
+.dot{flex:1;height:5px;border-radius:3px;background:rgba(244,239,230,0.2);transition:background .3s}
+.dot.on{background:#F4EFE6}
+.hdr-sub{font-size:12.5px;line-height:1.45;color:rgba(244,239,230,0.65);margin-top:12px}
+.scan-btn{margin-top:18px;display:flex;align-items:center;gap:10px;background:rgba(244,239,230,0.14);border:1.5px solid rgba(244,239,230,0.30);border-radius:999px;color:#F4EFE6;font-size:14px;font-weight:600;padding:11px 22px}
+.scan-btn:hover{background:rgba(244,239,230,0.22)}
+.grid-hdr{padding:22px 20px 8px;display:flex;align-items:baseline;justify-content:space-between}
+.grid-hdr-title{font-family:'Instrument Serif',Georgia,serif;font-size:20px}
+.grid-hdr-sub{font-size:11.5px;color:rgba(28,38,32,0.5)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 10px;padding:10px 20px 8px}
+.cell{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.seal{width:72px;height:72px;border-radius:999px;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.cell-name{font-size:12.5px;font-weight:600}
+.cell-caption{font-size:10.5px;line-height:1.35;margin-top:2px}
+.daycard{margin:18px 20px 0}
+.dc-locked{border:1.5px dashed rgba(28,38,32,0.25);border-radius:16px;padding:16px 18px}
+.dc-locked-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(28,38,32,0.45)}
+.dc-locked-title{font-family:'Instrument Serif',Georgia,serif;font-size:22px;margin-top:4px}
+.dc-locked-sub{font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:6px}
+.dc-open{background:#1C2620;border-radius:16px;padding:18px;color:#F4EFE6}
+.dc-open-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,239,230,0.6)}
+.dc-open-title{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1.05;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{font-size:12px;font-weight:500;padding:6px 11px;border-radius:999px;background:rgba(244,239,230,0.12)}
+.dc-open-sub{font-size:12.5px;line-height:1.5;color:rgba(244,239,230,0.65);margin-top:12px}
+.howbox{margin:16px 20px 0;background:#fff;border:1px solid rgba(28,38,32,0.10);border-radius:14px;padding:14px 16px}
+.howbox-title{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#2F6F6A}
+.howbox-body{font-size:13px;line-height:1.55;color:rgba(28,38,32,0.7);margin-top:6px}
+.reset-wrap{padding:18px 20px 28px;text-align:center}
+.reset-btn{background:none;border:none;font-size:11.5px;color:rgba(28,38,32,0.4);text-decoration:underline;padding:6px 10px}
+.overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(28,38,32,0.94);flex-direction:column;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.ov-title{font-family:'Instrument Serif',Georgia,serif;font-size:28px;color:#F4EFE6;margin-bottom:8px;text-align:center}
+.ov-sub{font-size:13px;color:rgba(244,239,230,0.65);margin-bottom:28px;text-align:center}
+.vf{position:relative;width:220px;height:220px;margin:0 auto 28px}
+.vf video{width:220px;height:220px;object-fit:cover;border-radius:16px;background:#111}
+.corner{position:absolute;width:32px;height:32px}
+.tl{top:0;left:0;border-top:3px solid #F4EFE6;border-left:3px solid #F4EFE6;border-radius:4px 0 0 0}
+.tr{top:0;right:0;border-top:3px solid #F4EFE6;border-right:3px solid #F4EFE6;border-radius:0 4px 0 0}
+.bl{bottom:0;left:0;border-bottom:3px solid #F4EFE6;border-left:3px solid #F4EFE6;border-radius:0 0 0 4px}
+.br{bottom:0;right:0;border-bottom:3px solid #F4EFE6;border-right:3px solid #F4EFE6;border-radius:0 0 4px 0}
+.demo-box{background:rgba(244,239,230,0.08);border-radius:14px;padding:14px 16px;margin-bottom:20px;width:100%;max-width:320px}
+.demo-lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,239,230,0.45);margin-bottom:10px}
+.demo-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.dsbtn{background:rgba(244,239,230,0.14);border:1px solid rgba(244,239,230,0.25);border-radius:999px;color:#F4EFE6;font-size:12px;padding:7px 14px}
+.dsbtn:hover{background:rgba(244,239,230,0.25)}
+.cancel-btn{background:rgba(244,239,230,0.12);border:none;border-radius:999px;color:#F4EFE6;font-size:14px;font-weight:500;padding:12px 28px}
+.cancel-btn:hover{background:rgba(244,239,230,0.2)}
+.toast{display:none;position:fixed;top:0;left:0;right:0;z-index:200;padding:0 20px;pointer-events:auto}
+.toast-close{background:none;border:none;color:rgba(244,239,230,0.5);padding:0;line-height:1;flex-shrink:0;margin-left:4px}
+.toast-inner{max-width:480px;margin:16px auto 0;background:#1C2620;border-radius:16px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,0.28)}
+.toast-icon{width:52px;height:52px;border-radius:999px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.toast-lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,239,230,0.55);margin-bottom:3px}
+.toast-name{font-family:'Instrument Serif',Georgia,serif;font-size:22px;color:#F4EFE6;margin-bottom:4px}
+.toast-fact{font-size:13px;line-height:1.5;color:rgba(244,239,230,0.7)}
+.toast-agg{font-size:12px;margin-top:8px;padding:7px 10px;background:rgba(244,239,230,0.08);border-radius:8px;color:rgba(244,239,230,0.55)}
+.demo-note{position:fixed;bottom:0;left:0;right:0;background:#1C2620;color:#F4EFE6;font-size:11.5px;font-weight:500;text-align:center;padding:7px 12px;z-index:50}
 </style>
-
-<style>#demo-note{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#1C2620;color:#F4EFE6;font:500 11.5px/1.35 'Space Grotesk',Helvetica,Arial,sans-serif;text-align:center;padding:7px 12px}#demo-note a{text-decoration:underline}body{padding-bottom:34px}</style>
 </head>
 <body>
-<div id="riva-root"></div>
-<div id="demo-note">Prototype for feedback · demo content: texts to be verified, photos are placeholders<span id="fb"></span></div>
-<template id="riva-template">
 
+<div class="overlay" id="overlay">
+  <div style="width:100%;max-width:360px;padding:0 24px;text-align:center;">
+    <div class="ov-title">Scan to stamp</div>
+    <div class="ov-sub">Point the camera at the Riva QR code at this location.</div>
+    <div class="vf">
+      <video id="qr-video" autoplay playsinline muted></video>
+      <div class="corner tl"></div><div class="corner tr"></div>
+      <div class="corner bl"></div><div class="corner br"></div>
+    </div>
+    <div class="demo-box">
+      <div class="demo-lbl">Demo — simulate scan</div>
+      <div class="demo-btns" id="demo-btns"></div>
+    </div>
+    <button class="cancel-btn" id="cancel-btn">Cancel</button>
+  </div>
+</div>
 
-<div style="width:100%;max-width:480px;margin:0 auto;min-height:100vh;background:#F4EFE6;font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#1C2620;display:flex;flex-direction:column;">
+<div class="toast" id="toast">
+  <div class="toast-inner">
+    <div class="toast-icon" id="toast-icon"></div>
+    <div style="flex:1">
+      <div class="toast-lbl" id="toast-lbl">Stamp earned</div>
+      <div class="toast-name" id="toast-name"></div>
+      <div class="toast-fact" id="toast-fact"></div>
+      <div class="toast-agg" id="toast-agg"></div>
+    </div>
+    <button class="toast-close" id="toast-close" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
 
-  <div style="position:relative;border-radius:0 0 20px 20px;overflow:hidden;background:linear-gradient(155deg,#2F4A43 0%,#1C2620 70%);padding:16px 20px 24px;">
-    <a href="index.html" aria-label="Back to Bellano overview" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:rgba(244,239,230,0.16);color:#F4EFE6;">
+<div class="page">
+  <div class="hdr">
+    <a href="index.html" class="hdr-back" aria-label="Back">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
     </a>
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(244,239,230,0.6);margin-top:22px;">Passport · Bellano</div>
-    <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px;">
-      <span style="font-family:'Instrument Serif',Georgia,serif;font-size:60px;line-height:1;color:#F4EFE6;">{{earnedCount}}</span>
-      <span style="font-size:15px;color:rgba(244,239,230,0.75);">of {{total}} stamps</span>
-    </div>
-    <div style="display:flex;gap:5px;margin-top:14px;">
-      <sc-for list="{{segments}}" as="seg" hint-placeholder-count="6">
-        <div style="{{seg.style}}"></div>
-      </sc-for>
-    </div>
-    <div style="font-size:12.5px;line-height:1.45;color:rgba(244,239,230,0.65);margin-top:12px;">Bellagio, Varenna and more will stamp the same passport.</div>
+    <div class="hdr-eyebrow">Passport · Bellano</div>
+    <div class="hdr-count"><span class="hdr-n" id="count-n">0</span><span class="hdr-of">of 7 stamps</span></div>
+    <div class="hdr-dots" id="dots"></div>
+    <div class="hdr-sub">Bellagio, Varenna and more will stamp the same passport.</div>
+    <button class="scan-btn" id="open-scanner">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/>
+        <rect x="3" y="16" width="5" height="5" rx="1"/>
+        <path d="M16 16h2v2h-2zM18 18h3v3h-3zM16 21h2"/>
+        <path d="M3 10h4M10 3v4M10 10h.01"/>
+      </svg>
+      Scan QR to stamp
+    </button>
   </div>
-
-  <div style="padding:22px 20px 8px;display:flex;align-items:baseline;justify-content:space-between;">
-    <div style="font-family:'Instrument Serif',Georgia,serif;font-size:20px;">Stamps</div>
-    <div style="font-size:11.5px;color:rgba(28,38,32,0.5);">Earned by exploring, not by typing</div>
+  <div class="grid-hdr">
+    <div class="grid-hdr-title">Stamps</div>
+    <div class="grid-hdr-sub">Earned by being there</div>
   </div>
-
-  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 10px;padding:10px 20px 8px;">
-    <sc-for list="{{cells}}" as="c" hint-placeholder-count="8">
-      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;">
-        <div role="img" aria-label="{{c.aria}}" style="{{c.sealStyle}}">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{c.glyphColor}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{c.glyph}}"/></svg>
-        </div>
-        <div>
-          <div style="font-size:12.5px;font-weight:600;">{{c.name}}</div>
-          <div style="{{c.captionStyle}}">{{c.caption}}</div>
-        </div>
-      </div>
-    </sc-for>
+  <div class="grid" id="grid"></div>
+  <div class="daycard" id="daycard"></div>
+  <div class="howbox">
+    <div class="howbox-title">How this works</div>
+    <div class="howbox-body">Stamps are earned by scanning the Riva QR code at each location — when you arrive, sit down, or board. Each scan takes one second. Answers are pooled with other visitors to help the Comune plan transport and flows — never shown on their own.</div>
   </div>
-
-  <div style="padding:18px 20px 0;">
-
-    <sc-if value="{{dayCardLocked}}" hint-placeholder-val="{{true}}">
-      <div style="border:1.5px dashed rgba(28,38,32,0.25);border-radius:16px;padding:16px 18px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,38,32,0.45);">Locked</div>
-        <div style="font-family:'Instrument Serif',Georgia,serif;font-size:22px;margin-top:4px;">Your Bellano day card</div>
-        <div style="font-size:13px;line-height:1.5;color:rgba(28,38,32,0.65);margin-top:6px;">{{toGoLine}} It builds itself from your stamps — nothing to fill in.</div>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{dayCardOpen}}" hint-placeholder-val="{{false}}">
-      <div style="background:#1C2620;border-radius:16px;padding:18px;color:#F4EFE6;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(244,239,230,0.6);">Unlocked</div>
-        <div style="font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1.05;margin-top:4px;">Your day in Bellano</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
-          <sc-for list="{{chips}}" as="chip" hint-placeholder-count="4">
-            <span style="font-size:12px;font-weight:500;padding:6px 11px;border-radius:999px;background:rgba(244,239,230,0.12);">{{chip.name}}</span>
-          </sc-for>
-        </div>
-        <div style="font-size:12.5px;line-height:1.5;color:rgba(244,239,230,0.65);margin-top:12px;">Built from what you opened and tapped. A shareable version is the next step.</div>
-      </div>
-    </sc-if>
-
-  </div>
-
-  <div style="padding:16px 20px 0;">
-    <div style="background:#fff;border:1px solid rgba(28,38,32,0.10);border-radius:14px;padding:14px 16px;">
-      <div style="font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#2F6F6A;">How this works</div>
-      <div style="font-size:13px;line-height:1.55;color:rgba(28,38,32,0.7);margin-top:6px;">Stamps come from what you open and tap. The few questions we ask take one tap each, and every one says why. Answers are pooled with other visitors to help the Comune plan transport and flows — never shown on their own.</div>
-    </div>
-  </div>
-
-  <div style="padding:18px 20px 28px;text-align:center;">
-    <button type="button" onClick="{{resetStamps}}" style="background:none;border:none;font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:rgba(28,38,32,0.4);text-decoration:underline;padding:6px 10px;">Reset demo stamps</button>
-  </div>
-
+  <div class="reset-wrap"><button class="reset-btn" id="reset-btn">Reset demo stamps</button></div>
 </div>
-</template>
-<script src="riva-runtime.js"></script>
-<script src="config.js"></script>
+
+<div class="demo-note">Prototype for feedback · demo content: texts and photos to be verified</div>
+
 <script>
+var STAMPS = [
+  {id:'arrived',name:'Arrive',color:'#2F6F6A',tint:'#EAF2F1',tilt:-5,
+   glyph:'M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+   how:'Scan QR at the pier, station or when boarding a ferry between villages',
+   fact:'The lake ferry network connects 27 landing stages. At full timetable you can reach any shore without a car.',
+   agg:'You are visitor #{{n}} from {{country}} this month.'},
+  {id:'see',name:'Looked closer',color:'#2F6F6A',tint:'#EAF2F1',tilt:4,
+   glyph:'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z M12 15a3 3 0 100-6 3 3 0 000 6z',
+   how:'Scan QR at any See location',
+   fact:"The Orrido di Bellano is one of the few river gorges in Europe you can walk through on suspended walkways.",
+   agg:'{{n}} visitors from {{country}} have scanned here this month.'},
+  {id:'table',name:'At the table',color:'#C1633B',tint:'#FBEDE6',tilt:-3,
+   glyph:'M6 3v8a2 2 0 002 2h0a2 2 0 002-2V3M8 13v8M17 3c-1.7 0-3 2-3 5s1.3 5 3 5m0-10v18',
+   how:'Scan QR on the table when you sit down',
+   fact:'Missoltini — air-dried agone fish pressed in tins with bay leaves — has been made on this lake since the 15th century.',
+   agg:'This restaurant has welcomed {{n}} international visitors this month.'},
+  {id:'pin',name:'Met a local',color:'#C1633B',tint:'#FBEDE6',tilt:6,
+   glyph:'M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
+   how:'Scan QR at a Meet location — artisans, historic figures, local voices',
+   fact:'The silk trade that once made this lake famous still survives in a handful of family workshops between Como and Lecco.',
+   agg:'{{n}} visitors have met a local here this month.'},
+  {id:'checkin',name:'Check-in',color:'#C1633B',tint:'#FBEDE6',tilt:-4,
+   glyph:'M9 12l2 2 4-4 M12 21a9 9 0 100-18 9 9 0 000 18z',
+   how:'Scan QR at your accommodation on arrival',
+   fact:'Staying overnight means you see the lake at its quietest — before 9am and after 7pm it belongs almost entirely to the people who live here.',
+   agg:'You are guest #{{n}} this month at this property.'},
+  {id:'slow',name:'Slow traveller',color:'#2F6F6A',tint:'#EAF2F1',tilt:3,
+   glyph:'M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12',
+   how:'Scan QR on the ferry or at the station',
+   fact:'The lake ferry network connects 27 landing stages. At full timetable you can reach any shore without a car.',
+   agg:'{{n}} slow travellers have boarded here this month.'},
+  {id:'street',name:'After sunset',color:'#C1633B',tint:'#FBEDE6',tilt:0,
+   glyph:'M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z',
+   how:'Scan QR at any Riva location after 7pm',
+   fact:'After 7pm the lakeside belongs almost entirely to the people who live here. Most day-trippers are already on the road home.',
+   agg:'{{n}} visitors have stayed into the evening this month.'}
+];
 
-class Component extends DCLogic {
-  storeKey() { return 'riva.bellano.v1'; }
-  catalog() {
-    return [
-      { id: 'welcome', name: 'Arrived', how: 'Open Riva in Bellano', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z' },
-      { id: 'see', name: 'See', how: 'Open all three See tabs', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z M12 15a3 3 0 100-6 3 3 0 000 6z' },
-      { id: 'table', name: 'At the table', how: 'Open all three Eat tabs', color: '#C1633B', tint: '#FBEDE6', glyph: 'M6 3v8a2 2 0 002 2h0a2 2 0 002-2V3M8 13v8M17 3c-1.7 0-3 2-3 5s1.3 5 3 5m0-10v18' },
-      { id: 'pin', name: 'Follow the pin', how: 'Tap a pin for directions', color: '#C1633B', tint: '#FBEDE6', glyph: 'M3 11l19-9-9 19-2-8-8-2z' },
-      { id: 'checkin', name: 'Check-in', how: 'Say how you got here', color: '#C1633B', tint: '#FBEDE6', glyph: 'M9 12l2 2 4-4 M12 21a9 9 0 100-18 9 9 0 000 18z' },
-      { id: 'slow', name: 'Slow traveller', how: 'Arrive by train or boat', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12' },
-      { id: 'meet', name: 'Meet', how: 'Open all three Meet tabs', color: '#2F6F6A', tint: '#EAF2F1', glyph: 'M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75' },
-      { id: 'street', name: 'Street', how: 'Open all three Street tabs', color: '#C1633B', tint: '#FBEDE6', glyph: 'M12 22a10 10 0 100-20 10 10 0 000 20z M12 6v6l4 2' }
-    ];
-  }
-  readStore() {
-    var raw = null;
-    try { raw = window.localStorage.getItem(this.storeKey()); } catch (e) {}
-    if (!raw) { try { raw = window.__rivaMem || null; } catch (e) {} }
-    var data = null;
-    try { data = raw ? JSON.parse(raw) : null; } catch (e) { data = null; }
-    if (!data || typeof data !== 'object') data = {};
-    if (!Array.isArray(data.stamps)) data.stamps = [];
-    if (!data.tabs || typeof data.tabs !== 'object') data.tabs = {};
-    return data;
-  }
-  writeStore(data) {
-    var raw = JSON.stringify(data);
-    try { window.__rivaMem = raw; } catch (e) {}
-    try { window.localStorage.setItem(this.storeKey(), raw); } catch (e) {}
-  }
+var KEY='riva.bellano.v2', THRESHOLD=4, _timer=null, _stream=null;
 
-  constructor(props) {
-    super(props);
-    this.state = { stamps: this.readStore().stamps };
-  }
-  componentDidMount() {
-    var self = this;
-    this.poll = setInterval(function () {
-      var s = self.readStore().stamps;
-      if (s.join(',') !== self.state.stamps.join(',')) self.setState({ stamps: s });
-    }, 1500);
-  }
-  componentWillUnmount() {
-    clearInterval(this.poll);
-  }
-  renderVals() {
-    var self = this;
-    var cat = this.catalog();
-    var have = this.state.stamps;
-    var earnable = cat.filter(function (s) { return !s.soon; });
-    var earned = earnable.filter(function (s) { return have.indexOf(s.id) >= 0; });
-    var n = earned.length;
-    var tilts = [-5, 4, -3, 6, -4, 3, 0, 0];
-    var threshold = 4;
-    var toGo = Math.max(0, threshold - n);
-    var base = 'width:72px;height:72px;border-radius:999px;display:flex;align-items:center;justify-content:center;';
-    return {
-      earnedCount: n,
-      total: earnable.length,
-      segments: earnable.map(function (s) {
-        var on = have.indexOf(s.id) >= 0;
-        return { style: 'flex:1;height:5px;border-radius:3px;background:' + (on ? '#F4EFE6' : 'rgba(244,239,230,0.2)') + ';' };
-      }),
-      cells: cat.map(function (s, i) {
-        var on = !s.soon && have.indexOf(s.id) >= 0;
-        return {
-          name: s.name,
-          glyph: s.glyph,
-          glyphColor: on ? s.color : 'rgba(28,38,32,0.35)',
-          sealStyle: on
-            ? base + 'border:2.5px solid ' + s.color + ';background:' + s.tint + ';box-shadow:inset 0 0 0 4px #F4EFE6, inset 0 0 0 5.5px ' + s.color + ';transform:rotate(' + tilts[i] + 'deg);'
-            : base + 'border:2px dashed rgba(28,38,32,0.22);',
-          caption: s.soon ? 'Coming soon' : (on ? 'Earned' : s.how),
-          captionStyle: 'font-size:10.5px;line-height:1.35;margin-top:2px;' + (on ? 'font-weight:600;color:' + s.color + ';' : 'color:rgba(28,38,32,0.55);'),
-          aria: s.name + (on ? ', earned' : (s.soon ? ', coming soon' : ', not yet earned. ' + s.how))
-        };
-      }),
-      dayCardLocked: n < threshold,
-      dayCardOpen: n >= threshold,
-      toGoLine: 'Earn ' + toGo + ' more stamp' + (toGo === 1 ? '' : 's') + ' to unlock it.',
-      chips: earned.map(function (s) { return { name: s.name }; }),
-      resetStamps: function () {
-        self.writeStore({ stamps: [], tabs: {} });
-        self.setState({ stamps: [] });
-      }
-    };
+function readStore(){try{var r=localStorage.getItem(KEY);var d=r?JSON.parse(r):{};if(!Array.isArray(d.stamps))d.stamps=[];return d;}catch(e){return{stamps:[]};}}
+function writeStore(d){try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}}
+
+function render(){
+  var earned=readStore().stamps, n=earned.length;
+  document.getElementById('count-n').textContent=n;
+  var dots=document.getElementById('dots');
+  dots.innerHTML='';
+  STAMPS.forEach(function(s){var d=document.createElement('div');d.className='dot'+(earned.indexOf(s.id)>=0?' on':'');dots.appendChild(d);});
+  var grid=document.getElementById('grid');
+  grid.innerHTML='';
+  STAMPS.forEach(function(s){
+    var on=earned.indexOf(s.id)>=0;
+    var cell=document.createElement('div');cell.className='cell';
+    var sStyle='background:'+(on?s.tint:'transparent')+';border:'+(on?'2.5px solid '+s.color:'2px dashed rgba(28,38,32,0.22)')+';'+(on?'box-shadow:inset 0 0 0 4px #F4EFE6,inset 0 0 0 5.5px '+s.color+';transform:rotate('+s.tilt+'deg);':'');
+    cell.innerHTML='<div class="seal" style="'+sStyle+'"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="'+(on?s.color:'rgba(28,38,32,0.35)')+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+s.glyph+'"/></svg></div><div><div class="cell-name">'+s.name+'</div><div class="cell-caption" style="color:'+(on?s.color:'rgba(28,38,32,0.55)')+'">'+( on?'Earned':s.how)+'</div></div>';
+    grid.appendChild(cell);
+  });
+  var dc=document.getElementById('daycard'), toGo=Math.max(0,THRESHOLD-n);
+  if(n<THRESHOLD){
+    dc.innerHTML='<div class="dc-locked"><div class="dc-locked-label">Locked</div><div class="dc-locked-title">Your Bellano day card</div><div class="dc-locked-sub">Earn '+toGo+' more stamp'+(toGo===1?'':'s')+' to unlock it. It builds itself from your stamps — nothing to fill in.</div></div>';
+  } else {
+    var chips=STAMPS.filter(function(s){return earned.indexOf(s.id)>=0;}).map(function(s){return'<span class="chip">'+s.name+'</span>';}).join('');
+    dc.innerHTML='<div class="dc-open"><div class="dc-open-label">Unlocked</div><div class="dc-open-title">Your day in Bellano</div><div class="chips">'+chips+'</div><div class="dc-open-sub">Built from what you scanned. A shareable version is the next step.</div></div>';
   }
 }
 
-rivaMount({Component: Component});
-(function(){var u=(window.RIVA_CONFIG||{}).feedbackUrl;if(u){var s=document.getElementById('fb');var a=document.createElement('a');a.href=u;a.target='_blank';a.rel='noopener';a.textContent='Give feedback';s.textContent=' · ';s.appendChild(a);}})();
+function handleScan(id){
+  var s=STAMPS.find(function(x){return x.id===id;});if(!s)return;
+  var data=readStore(), already=data.stamps.indexOf(id)>=0;
+  if(!already){data.stamps.push(id);writeStore(data);}
+  render(); showToast(s,already);
+}
+
+function showToast(s,already){
+  var n=Math.floor(Math.random()*80)+12;
+  var cs=['German','Italian','British','Swiss','French','Dutch','American'];
+  var c=cs[Math.floor(Math.random()*cs.length)];
+  var agg=s.agg.replace('{{n}}',n).replace('{{country}}',c);
+  document.getElementById('toast-icon').style.cssText='width:52px;height:52px;border-radius:999px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+s.tint+';border:2px solid '+s.color;
+  document.getElementById('toast-icon').innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="'+s.color+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+s.glyph+'"/></svg>';
+  document.getElementById('toast-lbl').textContent=already?'Already earned':'Stamp earned';
+  document.getElementById('toast-name').textContent=s.name;
+  document.getElementById('toast-fact').textContent=s.fact;
+  document.getElementById('toast-agg').textContent=agg;
+  var t=document.getElementById('toast');t.style.display='block';
+}
+
+function openScanner(){
+  var btns=document.getElementById('demo-btns');btns.innerHTML='';
+  STAMPS.forEach(function(s){var b=document.createElement('button');b.className='dsbtn';b.textContent=s.name;b.onclick=function(){closeScanner();handleScan(s.id);};btns.appendChild(b);});
+  document.getElementById('overlay').classList.add('open');
+  if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(function(stream){_stream=stream;document.getElementById('qr-video').srcObject=stream;}).catch(function(){});
+  }
+}
+function closeScanner(){
+  document.getElementById('overlay').classList.remove('open');
+  if(_stream){_stream.getTracks().forEach(function(t){t.stop();});_stream=null;}
+}
+
+document.getElementById('toast-close').onclick=function(){document.getElementById('toast').style.display='none';};
+document.getElementById('open-scanner').onclick=openScanner;
+document.getElementById('cancel-btn').onclick=closeScanner;
+document.getElementById('reset-btn').onclick=function(){writeStore({stamps:[]});render();};
+
+var p=new URLSearchParams(location.search),sc=p.get('scan');
+if(sc){handleScan(sc);history.replaceState(null,'',location.pathname);}
+
+render();
 </script>
 </body>
 </html>
